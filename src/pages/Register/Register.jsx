@@ -1,43 +1,9 @@
 import { Input } from "antd";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import welcomeLogin from "../../image/img-mobil.png";
 import logoBCR from "../../image/logo-bcr.png";
-// import logo from "./logo.svg";
 
-function Login() {
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  }, []);
-
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleSubmit = async () => {
-    try {
-      const res = await axios({
-        method: "POST",
-        url: "https://reqres.in/api/login",
-        data: loginData,
-      });
-
-      if (res.status === 200) {
-        localStorage.setItem("token", res.data.token);
-        navigate("/", { replace: true });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+function Register() {
   return (
     <div>
       <div className="container-fluid" style={{ margin: 0, padding: 0 }}>
@@ -60,7 +26,7 @@ function Login() {
           >
             <div className="form-head">
               <img src={logoBCR} alt="" />
-              <h1 className="pt-4 pb-4">Welcome, Admin BCR</h1>
+              <h1 className="pt-4 pb-4">Create New Account</h1>
             </div>
 
             <div className="form-content">
@@ -71,17 +37,9 @@ function Login() {
                   </label>
                   <Input
                     type="email"
-                    name="email"
                     className="form-control"
                     id="inputEmail"
                     placeholder="Contoh: johndee@gmail.com"
-                    value={loginData.email}
-                    onChange={(e) =>
-                      setLoginData({
-                        ...loginData,
-                        email: e.target.value,
-                      })
-                    }
                   />
                 </div>
                 <div className="mb-3">
@@ -90,17 +48,13 @@ function Login() {
                   </label>
                   <Input
                     type="password"
-                    name="password"
                     className="form-control"
                     id="inputPassword"
                     placeholder="6+ karakter"
-                    value={loginData.password}
-                    onChange={(e) =>
-                      setLoginData({ ...loginData, password: e.target.value })
-                    }
                   />
                 </div>
                 <button
+                  type="submit"
                   className="button-blue w-100 mt-4"
                   style={{
                     backgroundColor: "#0D28A6" /* Blue */,
@@ -111,12 +65,12 @@ function Login() {
                     textDecoration: "none",
                     fontSize: "14px",
                   }}
-                  onClick={() => {
-                    handleSubmit();
-                  }}
                 >
-                  Sign In
+                  Sign Up
                 </button>
+                <p className="pt-2">
+                  Already have an account? <a href="/login">Login</a>
+                </p>
               </form>
             </div>
           </div>
@@ -126,4 +80,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
