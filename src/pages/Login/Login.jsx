@@ -19,32 +19,14 @@ function Login() {
     try {
       const res = await axios({
         method: "POST",
-        url: "https://reqres.in/api/login",
+        url: "https://rent-cars-api.herokuapp.com/api-docs/admin/auth/login",
         data: loginData,
       });
 
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token);
         navigate("/", { replace: true });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleData = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const res = await axios({
-        method: "POST",
-        url: "https://reqres.in/api/login",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (res.status === 200) {
-        localStorage.setItem("token", res.data.token);
+        console.log(res.data.email);
       }
     } catch (error) {
       console.log(error);
@@ -130,9 +112,10 @@ function Login() {
                     textDecoration: "none",
                     fontSize: "14px",
                   }}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     handleSubmit();
-                    handleData();
+                    // handleData();
                   }}
                 >
                   Sign In

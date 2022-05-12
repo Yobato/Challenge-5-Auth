@@ -6,22 +6,23 @@ import HomeCar from "../../image/img_car.png";
 import "./Home.css";
 
 function Home() {
-  //   const token = localStorage.getItem("token");
-  //   const navigate = useNavigate();
-  //   const handleLogout = () => {
-  //     localStorage.clear();
-  //     navigate("/login", { replace: true });
-  //   };
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     if (!token) {
-  //       window.location.href = "/login";
-  //     }
-  //   }, []);
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login", { replace: true });
+  };
 
-  //   if (!token) {
-  //     return <div>Loading...</div>;
-  //   }
+  useEffect(() => {
+    if (!token) {
+      window.location.href = "/login";
+    }
+  }, []);
+
+  if (!token) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -47,7 +48,11 @@ function Home() {
                     kualitas terbaik dengan harga terjangkau. Selalu siap
                     melayani kebutuhanmu untuk sewa mobil selama 24 jam.
                   </p>
-                  <button type="button" className="btn btn-nav me-0">
+                  <button
+                    type="button"
+                    className="btn btn-nav me-0"
+                    onClick={() => handleLogout()}
+                  >
                     <strong>Mulai Sewa Mobil</strong>
                   </button>
                 </div>

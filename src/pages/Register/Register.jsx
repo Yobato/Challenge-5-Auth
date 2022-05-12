@@ -1,9 +1,64 @@
 import { Input } from "antd";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import welcomeLogin from "../../image/img-mobil.png";
 import logoBCR from "../../image/logo-bcr.png";
 
 function Register() {
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  const [registerData, setRegisterData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [validation, setValidation] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async () => {
+    try {
+      const res = await axios({
+        method: "POST",
+        url: "https://rent-cars-api.herokuapp.com/api-docs/admin/auth/login",
+        data: registerData,
+      });
+
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.token);
+        navigate("/dashboard", { replace: true });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleData = () => {
+    let error = validation;
+    // let test = true;
+
+    if (!registerData.email) {
+      error.email = "Email is required";
+    } else {
+      error.email = "";
+    }
+
+    if (!registerData.password) {
+      error.password = "Password is required";
+    } else {
+      error.password = "";
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/register");
+    }
+  }, []);
+
   return (
     <div>
       <div className="container-fluid" style={{ margin: 0, padding: 0 }}>
@@ -40,7 +95,16 @@ function Register() {
                     className="form-control"
                     id="inputEmail"
                     placeholder="Contoh: johndee@gmail.com"
+                    value={registerData.email}
+                    onChange={(e) =>
+                      setRegisterData({
+                        ...registerData,
+                        email: e.target.value,
+                      })
+                    }
                   />
+                  {validation.email && <p>{validation.email}</p>}
+                  {/* <p>{validateEmail}</p> */}
                 </div>
                 <div className="mb-3">
                   <label for="inputPassword" className="form-label">
@@ -51,7 +115,15 @@ function Register() {
                     className="form-control"
                     id="inputPassword"
                     placeholder="6+ karakter"
+                    onChange={(e) =>
+                      setRegisterData({
+                        ...registerData,
+                        password: e.target.value,
+                      })
+                    }
                   />
+                  {validation.password && <p>{validation.password}</p>}
+                  {/* <p>{validatePassword}</p> */}
                 </div>
                 <button
                   type="submit"
@@ -64,6 +136,12 @@ function Register() {
                     textAlign: "center",
                     textDecoration: "none",
                     fontSize: "14px",
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSubmit();
+                    handleData();
+                    // handleData();
                   }}
                 >
                   Sign Up
