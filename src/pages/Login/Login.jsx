@@ -10,12 +10,6 @@ function Login() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  }, []);
-
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -37,6 +31,31 @@ function Login() {
       console.log(error);
     }
   };
+
+  const handleData = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios({
+        method: "POST",
+        url: "https://reqres.in/api/login",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.token);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div>
@@ -113,6 +132,7 @@ function Login() {
                   }}
                   onClick={() => {
                     handleSubmit();
+                    handleData();
                   }}
                 >
                   Sign In
