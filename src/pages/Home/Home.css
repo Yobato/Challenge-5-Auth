@@ -1,0 +1,10 @@
+#halaman-1 {
+  background-color: #f1f3ff;
+}
+
+.btn-nav {
+  background-color: #5cb85f !important;
+  border-radius: 2px;
+  color: #fff;
+  /* font-weight: 900; */
+}
