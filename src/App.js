@@ -4,17 +4,19 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import ProtectedRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
   return (
     <Routes>
       <Route path="/">
-        <Route index element={<Home />} />
+        <Route element={<ProtectedRoute />}>
+          <Route index element={<Home />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        {/* <Route path="expenses" element={<Expenses />} />
-          <Route path="invoices" element={<Invoices />} /> */}
         <Route path="*" element={<div>Not Found</div>} />
       </Route>
     </Routes>

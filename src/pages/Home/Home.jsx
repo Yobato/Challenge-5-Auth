@@ -14,11 +14,11 @@ function Home() {
     navigate("/login", { replace: true });
   };
 
-  useEffect(() => {
-    if (!token) {
-      window.location.href = "/login";
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!token) {
+  //     window.location.href = "/login";
+  //   }
+  // }, []);
 
   if (!token) {
     return <div>Loading...</div>;

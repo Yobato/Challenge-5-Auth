@@ -6,38 +6,175 @@ import userPicture from "../../image/User_Picture.jpg";
 import rectangleIcon from "../../image/Rectangle_Icon.svg";
 import homeIcon from "../../image/Home_Icon.svg";
 import truckIcon from "../../image/Truck_Icon.svg";
-import { Dropdown, Menu, Space } from "antd";
+import { Dropdown, Menu, Space, Table } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import "antd/dist/antd.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  //   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login", { replace: true });
+  };
+
   const [sidebar, setSidebar] = useState(true);
 
   const toggleSidebar = () => {
     return setSidebar(!sidebar);
   };
 
-  //   const menu = (
-  //     <Menu
-  //       items={[
-  //         {
-  //           label: <a href="https://www.antgroup.com">1st menu item</a>,
-  //           key: "0",
-  //         },
-  //         {
-  //           label: <a href="https://www.aliyun.com">2nd menu item</a>,
-  //           key: "1",
-  //         },
-  //         {
-  //           type: "divider",
-  //         },
-  //         {
-  //           label: "3rd menu item",
-  //           key: "3",
-  //         },
-  //       ]}
-  //     />
-  //   );
+  const columns = [
+    {
+      title: "No",
+      dataIndex: "no",
+    },
+    {
+      title: " User Email",
+      dataIndex: "name",
+    },
+    {
+      title: "Car",
+      dataIndex: "chinese",
+      sorter: {
+        compare: (a, b) => a.chinese - b.chinese,
+        multiple: 3,
+      },
+    },
+    {
+      title: "Start Rent",
+      dataIndex: "math",
+      sorter: {
+        compare: (a, b) => a.math - b.math,
+        multiple: 2,
+      },
+    },
+    {
+      title: "Finish Rent",
+      dataIndex: "english",
+      sorter: {
+        compare: (a, b) => a.english - b.english,
+        multiple: 1,
+      },
+    },
+    {
+      title: "Price",
+      dataIndex: "english",
+      sorter: {
+        compare: (a, b) => a.english - b.english,
+        multiple: 1,
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "english",
+      sorter: {
+        compare: (a, b) => a.english - b.english,
+        multiple: 1,
+      },
+    },
+  ];
+
+  const data = [
+    {
+      key: "1",
+      no: "1",
+      name: "John Brown",
+      chinese: 98,
+      math: 60,
+      english: 70,
+    },
+    {
+      key: "2",
+      no: "2",
+      name: "Jim Green",
+      chinese: 98,
+      math: 66,
+      english: 89,
+    },
+    {
+      key: "3",
+      no: "3",
+      name: "Joe Black",
+      chinese: 98,
+      math: 90,
+      english: 70,
+    },
+    {
+      key: "4",
+      no: "4",
+      name: "Jim Red",
+      chinese: 88,
+      math: 99,
+      english: 89,
+    },
+    {
+      key: "5",
+      no: "5",
+      name: "Jim Red",
+      chinese: 88,
+      math: 99,
+      english: 89,
+    },
+    {
+      key: "6",
+      no: "6",
+      name: "Jim Red",
+      chinese: 88,
+      math: 99,
+      english: 89,
+    },
+    {
+      key: "7",
+      no: "7",
+      name: "Jim Red",
+      chinese: 88,
+      math: 99,
+      english: 89,
+    },
+    {
+      key: "8",
+      no: "8",
+      name: "Jim Red",
+      chinese: 88,
+      math: 99,
+      english: 89,
+    },
+    {
+      key: "9",
+      no: "9",
+      name: "Jim Red",
+      chinese: 88,
+      math: 99,
+      english: 89,
+    },
+    {
+      key: "10",
+      no: "10",
+      name: "Jim Red",
+      chinese: 88,
+      math: 99,
+      english: 89,
+    },
+  ];
+
+  function onChange(pagination, filters, sorter, extra) {
+    console.log("params", pagination, filters, sorter, extra);
+  }
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          label: <a onClick={handleLogout}>Logout</a>,
+          key: "0",
+        },
+      ]}
+    />
+  );
 
   return (
     <div className="ini-body">
@@ -96,42 +233,24 @@ function Dashboard() {
                     </form>
                   </li>
                   <li className="nav-item">
-                    {/* <Dropdown overlay={menu} trigger={["click"]}>
+                    <Dropdown overlay={menu} trigger={["click"]}>
                       <a onClick={(e) => e.preventDefault()}>
-                        <Space>
-                          Click me
+                        <Space
+                          style={{ marginTop: "10px", marginLeft: "10px" }}
+                        >
+                          <img
+                            src={userPicture}
+                            alt="user"
+                            width="32"
+                            height="32"
+                            class="rounded-circle me-2"
+                            style={{ objectFit: "cover" }}
+                          />
+                          Ini User
                           <DownOutlined />
                         </Space>
                       </a>
-                    </Dropdown> */}
-                    {/* <div className="dropdown mt-1">
-                      <a
-                        href="#"
-                        className="d-flex flex-row justify-content-center align-items-center link-dark text-decoration-none dropdown-toggle me-2"
-                        id="dropdownUser"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <img
-                          src={userPicture}
-                          width="32"
-                          height="32"
-                          className="rounded-circle me-2"
-                          style={{ objectFit: "cover" }}
-                          alt="user"
-                        />
-                        <p className="my-0 me-2">Satriyo Bagus</p>
-                      </a>
-                      <ul
-                        className="dropdown-menu text-small shadow"
-                        aria-labelledby="dropdownUser"
-                      />
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Log Out
-                        </a>
-                      </li>
-                    </div> */}
+                    </Dropdown>
                   </li>
                 </ul>
               </div>
@@ -141,7 +260,6 @@ function Dashboard() {
         {/* <!-- NAVBAR SECTION END --> */}
 
         {/* <!-- SIDEBAR SECTION BEGIN --> */}
-        {/* <div className="sidebar-container"> */}
         <div className="sidebar-contaier d-flex">
           <section className="sidebar-section">
             {/* <!-- Sidebar - Main Menu --> */}
@@ -176,14 +294,23 @@ function Dashboard() {
               <div className="col-lg-0" id="show-col-lg-0">
                 <div className="adding-space" style={{ width: "300px" }}></div>
               </div>
-              <div className="col-lg-12" id="show-col-lg-12" style={{ marginTop: "90px" }}>
-                {/* <%-body%> */}
-                <p>Test</p>
+              <div
+                className="col-lg-12"
+                id="show-col-lg-12"
+                style={{ marginTop: "90px" }}
+              >
+                <h3>Dashboard</h3>
+                <Table
+                  columns={columns}
+                  dataSource={data}
+                  onChange={onChange}
+                  style={{ zIndex: -1 }}
+                />
+                ;
               </div>
             </div>
           </section>
         </div>
-        {/* </div> */}
         {/* <!-- BAGIAN ISI CONTENT BERAKHIR Di SINI -->
             <!-- CONTENT SECTION END --> */}
       </div>

@@ -4,7 +4,8 @@ body {
 
 /* CONTENT SECTION BEGIN */
 .content-section {
-  margin-left: 80px;
+  margin-left: auto;
+  margin-right: auto;
   /* margin-top: 70px; */
 }
 /* CONTENT SECTION END */
@@ -127,3 +128,11 @@ a:hover {
   font-weight: 700;
 }
 /* ADD NEW CAR END */
+
+.ant-table-thead > tr > th {
+  background: #bad1e3 !important;
+}
+
+.ant-table-column-sorter{
+  background-color: #0000 !important;
+}
