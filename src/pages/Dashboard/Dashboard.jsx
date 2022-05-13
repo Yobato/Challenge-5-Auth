@@ -289,7 +289,7 @@ function Dashboard() {
 
           {/* <!-- CONTENT SECTION BEGIN --> */}
           {/* <!-- BAGIAN ISI CONTENT DI MULAI DARI SINI --> */}
-          <section className="content-section ps-2 pe-4">
+          <section className="content-section ps-2 pe-4" style={{ zIndex: -1 }}>
             <div className="row">
               <div className="col-lg-0" id="show-col-lg-0">
                 <div className="adding-space" style={{ width: "300px" }}></div>
