@@ -1,19 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import Dashboard from "../Dashboard";
 
-// Object.defineProperty(window, "matchMedia", {
-//   writable: true,
-//   value: jest.fn().mockImplementation((query) => ({
-//     matches: false,
-//     media: query,
-//     onchange: null,
-//     addListener: jest.fn(), // Deprecated
-//     removeListener: jest.fn(), // Deprecated
-//     addEventListener: jest.fn(),
-//     removeEventListener: jest.fn(),
-//     dispatchEvent: jest.fn(),
-//   })),
-// });
+global.matchMedia =
+  global.matchMedia ||
+  function () {
+    return {
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    };
+  };
 
 const mockedUsedNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -21,8 +16,20 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedUsedNavigate,
 }));
 
-test("render Loading", () => {
+test("render Search", () => {
   render(<Dashboard />);
-  const linkElement = screen.getByText(/Car/i);
+  const linkElement = screen.getByText(/Search/i);
+  expect(linkElement).toBeInTheDocument();
+});
+
+test("render User", () => {
+  render(<Dashboard />);
+  const linkElement = screen.getByText(/Ini User/i);
+  expect(linkElement).toBeInTheDocument();
+});
+
+test("render Cars", () => {
+  render(<Dashboard />);
+  const linkElement = screen.getByText(/Cars/i);
   expect(linkElement).toBeInTheDocument();
 });

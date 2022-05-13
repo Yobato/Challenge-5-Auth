@@ -1,17 +1,21 @@
 import React from "react";
-import "./Navbar.css"
+import { useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login", { replace: true });
+  };
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light fixed-top"
       style={{ backgroundColor: "#F1F3FF" }}
     >
       <div className="container">
-        <button
-          type="button"
-          className="btn btn-nav1 me-0 ms-0"
-        >
+        <button type="button" className="btn btn-nav1 me-0 ms-0">
           <span style={{ visibility: "hidden" }}>Register</span>
         </button>
         <button
@@ -42,8 +46,12 @@ function Navbar() {
             <a className="link nav-link me-4" href="#halaman-6">
               FAQ
             </a>
-            <button type="button" className="btn btn-nav me-0">
-              <strong>Register</strong>
+            <button
+              type="button"
+              className="btn btn-nav me-0"
+              onClick={() => handleLogout()}
+            >
+              <strong>Logout</strong>
             </button>
           </div>
         </div>

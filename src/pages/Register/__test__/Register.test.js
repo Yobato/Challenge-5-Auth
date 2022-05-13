@@ -16,12 +16,12 @@ test("render judul halaman", () => {
 
 test("render label email", () => {
   render(<Register />);
-  const linkElement = screen.getByText(/Email/i);
+  const linkElement = screen.getByLabelText(/Email/i);
   expect(linkElement).toBeInTheDocument();
 });
 
 test("render label password", () => {
   render(<Register />);
-  const linkElement = screen.getByText(/Password/i);
+  const linkElement = screen.getByLabelText(/Password/i);
   expect(linkElement).toBeInTheDocument();
 });

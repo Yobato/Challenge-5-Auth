@@ -14,10 +14,10 @@ function Register() {
     password: "",
   });
 
-  const [validation, setValidation] = useState({
-    email: "",
-    password: "",
-  });
+  // const [validation, setValidation] = useState({
+  //   email: "",
+  //   password: "",
+  // });
 
   const handleSubmit = async () => {
     if (!registerData.email || !registerData.password) {
@@ -38,6 +38,7 @@ function Register() {
         } else {
           navigate("/", { replace: true });
         }
+        return alert("Registration was successful!");
       }
     } catch (error) {
       console.log(error);
@@ -45,22 +46,22 @@ function Register() {
     }
   };
 
-  const handleData = () => {
-    let error = validation;
-    // let test = true;
+  // const handleData = () => {
+  //   let error = validation;
+  //   // let test = true;
 
-    if (!registerData.email) {
-      error.email = "Email is required";
-    } else {
-      error.email = "";
-    }
+  //   if (!registerData.email) {
+  //     error.email = "Email is required";
+  //   } else {
+  //     error.email = "";
+  //   }
 
-    if (!registerData.password) {
-      error.password = "Password is required";
-    } else {
-      error.password = "";
-    }
-  };
+  //   if (!registerData.password) {
+  //     error.password = "Password is required";
+  //   } else {
+  //     error.password = "";
+  //   }
+  // };
 
   useEffect(() => {
     if (token) {
@@ -112,7 +113,7 @@ function Register() {
                       })
                     }
                   />
-                  {validation.email && <p>{validation.email}</p>}
+                  {/* {validation.email && <p>{validation.email}</p>} */}
                   {/* <p>{validateEmail}</p> */}
                 </div>
                 <div className="mb-3">
@@ -131,7 +132,7 @@ function Register() {
                       })
                     }
                   />
-                  {validation.password && <p>{validation.password}</p>}
+                  {/* {validation.password && <p>{validation.password}</p>} */}
                   {/* <p>{validatePassword}</p> */}
                 </div>
                 <button
@@ -149,7 +150,7 @@ function Register() {
                   onClick={(e) => {
                     e.preventDefault();
                     handleSubmit();
-                    handleData();
+                    // handleData();
                     // handleData();
                   }}
                 >

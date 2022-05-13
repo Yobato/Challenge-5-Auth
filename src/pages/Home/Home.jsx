@@ -7,12 +7,6 @@ import "./Home.css";
 
 function Home() {
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login", { replace: true });
-  };
 
   // useEffect(() => {
   //   if (!token) {
@@ -51,7 +45,6 @@ function Home() {
                   <button
                     type="button"
                     className="btn btn-nav me-0"
-                    onClick={() => handleLogout()}
                   >
                     <strong>Mulai Sewa Mobil</strong>
                   </button>

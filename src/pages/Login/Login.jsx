@@ -39,7 +39,7 @@ function Login() {
     } catch (error) {
       console.log(error);
       if (error.response.status === 400) {
-        return alert("Password was Wrong");
+        return alert("Password is Wrong");
       } else {
         return alert("Email not found");
       }
@@ -133,6 +133,9 @@ function Login() {
                 >
                   Sign In
                 </button>
+                <p className="pt-2">
+                  Don't have an account yet? <a href="/register">Register</a>
+                </p>
               </form>
             </div>
           </div>
