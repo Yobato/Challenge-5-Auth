@@ -132,6 +132,7 @@ function Register() {
                       })
                     }
                   />
+
                   {/* {validation.password && <p>{validation.password}</p>} */}
                   {/* <p>{validatePassword}</p> */}
                 </div>
