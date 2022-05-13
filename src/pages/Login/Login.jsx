@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import welcomeLogin from "../../image/img-mobil.png";
@@ -7,6 +7,7 @@ import logoBCR from "../../image/logo-bcr.png";
 // import logo from "./logo.svg";
 
 function Login() {
+  // var accessTokenObj = JSON.parse(localStorage.getItem("Token:"));
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -17,19 +18,31 @@ function Login() {
 
   const handleSubmit = async () => {
     try {
+      if (!loginData.email || !loginData.password) {
+        return alert("Please fill all the fields!");
+      }
       const res = await axios({
         method: "POST",
-        url: "https://rent-cars-api.herokuapp.com/api-docs/admin/auth/login",
+        url: "https://rent-car-appx.herokuapp.com/admin/auth/login",
         data: loginData,
       });
 
-      if (res.status === 200) {
-        localStorage.setItem("token", res.data.token);
-        navigate("/", { replace: true });
-        console.log(res.data.email);
+      if (res.status === 201) {
+        console.log(res);
+        localStorage.setItem("token", res.data.access_token);
+        if (res.data.role === "admin") {
+          navigate("/dashboard", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
       }
     } catch (error) {
       console.log(error);
+      if (error.response.status === 400) {
+        return alert("Password was Wrong");
+      } else {
+        return alert("Email not found");
+      }
     }
   };
 
@@ -67,7 +80,7 @@ function Login() {
             <div className="form-content">
               <form action="">
                 <div className="mb-3">
-                  <label for="inputEmail" className="form-label">
+                  <label htmlFor="inputEmail" className="form-label">
                     Email
                   </label>
                   <Input
@@ -86,7 +99,7 @@ function Login() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label for="inputPassword" className="form-label">
+                  <label htmlFor="inputPassword" className="form-label">
                     Password
                   </label>
                   <Input

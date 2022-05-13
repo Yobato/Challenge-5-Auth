@@ -20,19 +20,28 @@ function Register() {
   });
 
   const handleSubmit = async () => {
+    if (!registerData.email || !registerData.password) {
+      return alert("Please fill all the fields!");
+    }
     try {
       const res = await axios({
         method: "POST",
-        url: "https://rent-cars-api.herokuapp.com/api-docs/admin/auth/login",
+        url: "https://rent-car-appx.herokuapp.com/admin/auth/register",
         data: registerData,
       });
 
-      if (res.status === 200) {
-        localStorage.setItem("token", res.data.token);
-        navigate("/dashboard", { replace: true });
+      if (res.status === 201) {
+        console.log(res);
+        localStorage.setItem("token", res.data.access_token);
+        if (res.data.role === "admin") {
+          navigate("/dashboard", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
       }
     } catch (error) {
       console.log(error);
+      return alert("Email already Exist");
     }
   };
 
@@ -87,7 +96,7 @@ function Register() {
             <div className="form-content">
               <form action="">
                 <div className="mb-3">
-                  <label for="inputEmail" className="form-label">
+                  <label htmlFor="inputEmail" className="form-label">
                     Email
                   </label>
                   <Input
@@ -107,7 +116,7 @@ function Register() {
                   {/* <p>{validateEmail}</p> */}
                 </div>
                 <div className="mb-3">
-                  <label for="inputPassword" className="form-label">
+                  <label htmlFor="inputPassword" className="form-label">
                     Password
                   </label>
                   <Input

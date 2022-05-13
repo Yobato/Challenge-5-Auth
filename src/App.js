@@ -9,7 +9,6 @@ import ProtectedRoute from "./components/PrivateRoute/PrivateRoute";
 function App() {
   return (
     <Routes>
-      <Route path="/">
         <Route element={<ProtectedRoute />}>
           <Route index element={<Home />} />
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
@@ -18,7 +17,6 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<div>Not Found</div>} />
-      </Route>
     </Routes>
   );
 }

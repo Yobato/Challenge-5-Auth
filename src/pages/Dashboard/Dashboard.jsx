@@ -243,7 +243,7 @@ function Dashboard() {
                             alt="user"
                             width="32"
                             height="32"
-                            class="rounded-circle me-2"
+                            className="rounded-circle me-2"
                             style={{ objectFit: "cover" }}
                           />
                           Ini User
