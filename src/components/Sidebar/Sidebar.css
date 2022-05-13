@@ -1,0 +1,10 @@
+.side-inactive {
+  display: none;
+  width: 0;
+}
+
+.side-width {
+  width: 200px;
+  margin-left: 70px;
+  height: 100vh;
+}
